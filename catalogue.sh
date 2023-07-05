@@ -15,7 +15,7 @@ echo -e "\e[31m  download application content \e[0m"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip &>>/tmp/roboshop.log
 cd /app
 
-echo -e "\e[31m extract application content \e[0m"
+echo -e "\e[31m extract Application content \e[0m"
 unzip /tmp/catalogue.zip &>>/tmp/roboshop.log
 
 echo -e "\e[31m Install nodejs dependencies \e[0m"
