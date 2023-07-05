@@ -23,7 +23,7 @@ cd /app
 npm install &>>/tmp/roboshop.log
 
 echo -e "\e[31m setup systemd service \e[0m"
-cp /root/Roboshop-shell/catalogue.service/etc/systemd/system/catalogue.service &>>/tmp/roboshop.log
+cp /root/Roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>>/tmp/roboshop.log
 
 echo -e "\e[31m  start catalogue service \e[0m"
 
