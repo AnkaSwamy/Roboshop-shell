@@ -16,7 +16,7 @@ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue
 cd /app
 
 echo -e "\e[36m extract application content \e[0m"
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>>/tmp/roboshop.log
 
 echo -e "\e[36m Install nodejs dependencies \e[0m"
 cd /app
@@ -31,7 +31,7 @@ systemctl daemon-reload &>>/tmp/roboshop.log
 systemctl enable catalogue &>>/tmp/roboshop.log
 
 echo -e "\e[36m  copy mongodb repo file \e[0m"
-cp mongo.repo /etc/yum.repos.d/mongodb.repo
+cp mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 echo -e "\e[36m  Install Mongodb client\ e[0m"
 yum install mongodb-org-shell -y &>>/tmp/roboshop.log
