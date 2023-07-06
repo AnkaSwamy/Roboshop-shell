@@ -26,7 +26,7 @@ echo -e "\e[31m Setup systemd service \e[0m"
 cp /root/Roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service  &>>/tmp/roboshop.log
 
 echo -e "\e[31m  Start catalogue service \e[0m"
-systemctl daemon-reload    &>>/tmp/roboshop.log
+systemctl daemon-reload  &>>/tmp/roboshop.log
 systemctl enable catalogue  &>>/tmp/roboshop.log
 systemctl restart catalogue  &>>/tmp/roboshop.log
 
@@ -38,3 +38,4 @@ yum install mongodb-org-shell -y  &>>/tmp/roboshop.log
 
 echo -e "\e[31m Load Schema \e[0m"
 mongo --host mongodb-dev.ankadevopsb73.store </app/schema/catalogue.js  &>>/tmp/roboshop.log
+
