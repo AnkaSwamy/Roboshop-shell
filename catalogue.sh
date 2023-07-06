@@ -30,10 +30,10 @@ systemctl daemon-reload  &>>/tmp/roboshop.log
 systemctl enable catalogue  &>>/tmp/roboshop.log
 systemctl restart catalogue  &>>/tmp/roboshop.log
 
-echo -e "\e[31m  Copy mongodb repo file \e[0m"
+echo -e "\e[31m Copy mongodb repo file \e[0m"
 cp /root/Roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>/tmp/roboshop.log
 
-echo -e "\e[31m  Install Mongodb client \e[0m"
+echo -e "\e[31m Install Mongodb client \e[0m"
 yum install mongodb-org-shell -y  &>>/tmp/roboshop.log
 
 echo -e "\e[31m Load Schema \e[0m"
