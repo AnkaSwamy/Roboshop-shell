@@ -43,12 +43,12 @@ nodejs() {
   yum install mongodb-org-shell -y  &>>$log_file
 }
 mongo_schema_setup() {
-  echo -e "\e[31m  copy mongodb repo file \e[0m"
-  cp /root/Roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>/tmp/roboshop.log
+  echo -e "${color}  copy mongodb repo file ${nocolor}"
+  cp /root/Roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
 
-  echo -e "\e[31m  Install Mongodb client \e[0m"
-  yum install mongodb-org-shell -y  &>>/tmp/roboshop.log
+  echo -e "${color}  Install Mongodb client ${nocolor}"
+  yum install mongodb-org-shell -y  &>>$log_file
 
-  echo -e "\e[31m Load schema \e[0m"
-  mongo --host mongodb-dev.ankadevopsb73.store </app/schema/user.js  &>>/tmp/roboshop.log
+  echo -e "${color} Load schema ${nocolor}"
+  mongo --host mongodb-dev.ankadevopsb73.store <${app_path}/schema/$component.js  &>>$log_file
 }
