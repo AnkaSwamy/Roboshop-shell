@@ -30,6 +30,6 @@ echo -e "\e[31m setup systemd service \e[0m"
 cp /root/Roboshop-shell/shipping.service /etc/systemd/system/shipping.service &>>/tmp/roboshop.log
 
 echo -e "\e[31m Start shipping service \e[0m"
-systemctl daemon-reload
+systemctl daemon-reload  &>>/tmp/roboshop.log
 systemctl enable shipping  &>>/tmp/roboshop.log
 systemctl restart shipping  &>>/tmp/roboshop.log
