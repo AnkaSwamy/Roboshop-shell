@@ -42,5 +42,5 @@ cp /root/Roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
 echo -e "${color} Install Mongodb client ${nocolor}"
 yum install mongodb-org-shell -y  &>>$log_file
 
-echo -e "${color} Load Schema ${nocolor}"
+echo -e "${color} Load schema ${nocolor}"
 mongo --host mongodb-dev.ankadevopsb73.store <${app_path}/schema/$component.js   &>>$log_file
