@@ -1,19 +1,21 @@
-echo -e "\e[31m Installing Nginx server \e[0m"
-yum install nginx -y &>>/tmp/roboshop.log
+source common.sh
 
-echo -e "\e[31m Remove default content \e[0m"
-rm -rf /usr/share/nginx/html/* &>>/tmp/roboshop.log
+echo -e "${color} Installing Nginx server ${nocolor} "
+yum install nginx -y &>>$log_file
 
-echo -e "\e[31m Download frontend content \e[0m"
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>/tmp/roboshop.log
+echo -e "${color} Remove default content ${nocolor}"
+rm -rf /usr/share/nginx/html/* &>>$log_file
 
-echo -e "\e[31m Extract frontend content \e[0m"
+echo -e "${color} Download frontend content ${nocolor}""
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>$log_file
+
+echo -e "${color} Extract frontend content ${nocolor}"
 cd /usr/share/nginx/html
-unzip /tmp/frontend.zip &>>/tmp/roboshop.log
+unzip /tmp/frontend.zip &>>$log_file
 
-echo -e "\e[31m Update the configuration \e[0m"
-cp /root/Roboshop-shell/roboshop.conf /etc/nginx/default.d/roboshop.conf
+echo -e "${color} Update the configuration ${nocolor}""
+cp /root/Roboshop-shell/roboshop.conf /etc/nginx/default.d/roboshop.conf  &>>$log_file
 
-echo -e "\e[31m Start nginx server \e[0m"
-systemctl enable nginx &>>/tmp/roboshop.log
-systemctl restart nginx &>>/tmp/roboshop.log
+echo -e "${color} Start nginx server ${nocolor}"
+systemctl enable nginx &>>$log_file
+systemctl restart nginx  &>>$log_file

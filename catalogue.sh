@@ -1,9 +1,3 @@
-catalogue=component
-color="\e[31m"
-nocolor="\e[0m"
-app_path="/app"
-log_file="/tmp/roboshop.log"
-
 echo -e "${color} Configure nodejs repos ${nocolor}"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash   &>>$log_file
 
