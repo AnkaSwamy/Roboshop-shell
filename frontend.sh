@@ -7,7 +7,7 @@ echo -e "${color} Remove default content ${nocolor}"
 rm -rf /usr/share/nginx/html/* &>>$log_file
 
 echo -e "${color} Download frontend content ${nocolor}""
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>$log_file
+curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>$log_file
 
 echo -e "${color} Extract frontend content ${nocolor}"
 cd /usr/share/nginx/html

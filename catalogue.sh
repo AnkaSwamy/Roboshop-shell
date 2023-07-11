@@ -1,5 +1,4 @@
 source common.sh
-component =${catalogue}
-
-nodejs()
+component=$catalogue
+nodejs
 mongo_schema_setup
