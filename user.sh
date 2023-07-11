@@ -1,4 +1,4 @@
 source common.sh
-component =$user
+component =user
 nodejs
 mongo_schema_setup
