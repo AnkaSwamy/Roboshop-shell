@@ -1,4 +1,4 @@
 source common.sh
-component=$payment
+component=payment
 roboshop_app_paasword=$1
 python
