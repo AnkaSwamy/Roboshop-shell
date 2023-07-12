@@ -15,7 +15,11 @@ log_file="/tmp/roboshop.log"
     echo -e "${color} Create application directory ${nocolor}"
     rm -rf
     mkdir ${app_path}  &>>$log_file
-    echo $?
+     if [ $? -eq 0 ]; then
+          echo SUCCESS
+          else
+            echo FAILURE
+            fi
 
     echo -e "${color} Download application content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
