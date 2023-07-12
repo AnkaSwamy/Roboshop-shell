@@ -77,7 +77,7 @@ stat_check() {
     mysql -h  mysql-dev.ankadevopsb73.store -uroot -pRoboShop@1 <${app_path}/schema/$component.sql   &>>log_file
     }
   maven() {
-    echo -e "${color}  Install maven ${nocolor}"
+    echo -e "${color}  Install Maven ${nocolor}"
     yum install maven -y  &>>$log_file
     app_presetup
 
