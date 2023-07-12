@@ -16,14 +16,14 @@ stat_check() {
         fi
   }
   app_presetup() {
-    echo -e "${color} Add application user ${nocolor}"
+    echo -e "${color} Add an application user ${nocolor}"
     id roboshop  &>>$log_file
     if [ $? -eq 1 ]; then
     useradd roboshop  &>>$log_file
     fi
     stat_check $?
 
-    echo -e "${color} Create application directory ${nocolor}"
+    echo -e "${color} Create an application directory ${nocolor}"
     rm -rf ${app_path}
     mkdir ${app_path}  &>>$log_file
     stat_check $?
