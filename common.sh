@@ -25,7 +25,7 @@ stat_check() {
     stat_check $?
 
     echo -e "${color} Download application content ${nocolor}"
-    curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
+    curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip   &>>$log_file
     stat_check $?
 
     echo -e "${color} Extract application content ${nocolor}"
@@ -37,16 +37,15 @@ stat_check() {
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
     cp /root/Roboshop-shell/$component.service /etc/systemd/system/$component.service  &>>$log_file
+    sed -i -e "s/roboshop_app_passwd/$1/" /root/Roboshop-shell/$component.service
     stat_check $?
 
     echo -e "${color}  Start the $component service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
-    systemctl enable ${component}  &>>$log_file
-    systemctl restart ${component} &>>$log_file
+    systemctl enable $component  &>>$log_file
+    systemctl restart $component &>>$log_file
     stat_check $?
-
-
-    }
+  }
   nodejs() {
     echo -e "${color} Configure nodejs repos ${nocolor}"
     curl -sL https://rpm.nodesource.com/setup_lts.x | bash   &>>$log_file
@@ -56,8 +55,6 @@ stat_check() {
 
     echo -e "${color} Install nodejs dependencies ${nocolor}"
     npm install  &>>$log_file
-
-
     systemd_setup
     }
 
@@ -67,7 +64,7 @@ stat_check() {
     echo -e "${color}  Install Mongodb client ${nocolor}"
     yum install mongodb-org-shell -y  &>>$log_file
     echo -e "${color} Load schema ${nocolor}"
-    mongo --host mongodb-dev.ankadevopsb73.store <${app_path}/schema/${component}.js  &>>$log_file
+    mongo --host mongodb-dev.ankadevopsb73.store <${app_path}/schema/$component.js  &>>$log_file
     }
 
   mysql_schema_setup() {
@@ -83,7 +80,7 @@ stat_check() {
 
     echo -e "${color}  Download maven dependencies ${nocolor}"
     mvn clean package
-    mv target/${component}-1.0.jar ${component}.jar
+    mv target/$component-1.0.jar $component.jar
 
     mysql_schema_setup
 

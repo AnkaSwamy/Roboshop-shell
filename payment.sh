@@ -1,3 +1,4 @@
 source common.sh
-component=${payment}
+component=$payment
+roboshop_app_paaswd=$1
 python
