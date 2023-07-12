@@ -46,6 +46,7 @@ log_file="/tmp/roboshop.log"
 
     echo -e "${color} Install nodejs dependencies ${nocolor}"
     npm install  &>>$log_file
+    echo $?
 
     systemd_setup
     }
