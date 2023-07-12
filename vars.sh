@@ -10,3 +10,4 @@ print_arguments() {
   echo all  argument $*
   echo no of arguments $#
   }
+  print_arguments
