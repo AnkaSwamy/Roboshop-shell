@@ -26,27 +26,24 @@ stat_check() {
 
     echo -e "${color} Download application content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
-
     stat_check $?
 
     echo -e "${color} Extract application content ${nocolor}"
     cd ${app_path}
-    unzip /tmp/${component}.zip  &>>$log_file
+    unzip /tmp/$component.zip  &>>$log_file
     stat_check $?
     }
 
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
-    cp /root/Roboshop-shell/${component}.service /etc/systemd/system/${component}.service  &>>$log_file
-
+    cp /root/Roboshop-shell/$component.service /etc/systemd/system/$component.service  &>>$log_file
     stat_check $?
 
-    echo -e "${color}  Start the ${component} service ${nocolor}"
+    echo -e "${color}  Start the $component service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
     systemctl enable ${component}  &>>$log_file
     systemctl restart ${component} &>>$log_file
-
-     stat_check $?
+    stat_check $?
 
 
     }
@@ -96,16 +93,14 @@ stat_check() {
   python() {
     echo -e "${color} Install python ${nocolor}"
     yum install python36 gcc python3-devel -y  &>>log_file
-
-     stat_check $?
+    stat_check $?
 
     app_presetup
 
     echo -e "${color} Install application dependencies ${nocolor}"
-    cd /app
+    cd ${app_path}
     pip3.6 install -r requirements.txt  &>>log_file
-
-     stat_check $?
+    stat_check $?
 
     systemd_setup
   }
