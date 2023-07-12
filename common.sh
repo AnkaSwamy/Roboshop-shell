@@ -6,27 +6,35 @@ log_file="/tmp/roboshop.log"
   app_presetup() {
     echo -e "${color} Add application user ${nocolor}"
     useradd roboshop  &>>$log_file
+    echo $?
 
     echo -e "${color} Create application directory ${nocolor}"
     rm -rf
     mkdir ${app_path}  &>>$log_file
+    echo $?
 
     echo -e "${color} Download application content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
     cd ${app_path}
+    echo $?
 
     echo -e "${color} Extract application content ${nocolor}"
     unzip /tmp/${component}.zip  &>>$log_file
     cd ${app_path}
+    echo $?
     }
 
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
     cp /root/Roboshop-shell/${component}.service /etc/systemd/system/${component}.service  &>>$log_file
+    echo $?
+
     echo -e "${color}  Start the ${component} service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
     systemctl enable ${component}  &>>$log_file
     systemctl restart ${component} &>>$log_file
+    echo $?
+
 
     }
   nodejs() {
@@ -73,6 +81,7 @@ log_file="/tmp/roboshop.log"
   python() {
     echo -e "\e[31m Install python \e[0m"
     yum install python36 gcc python3-devel -y  &>>/tmp/roboshop.log
+    echo $?
 
     app_presetup
 
