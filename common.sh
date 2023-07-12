@@ -9,11 +9,10 @@ stat_check() {
         else
           echo FAILURE
           fi
-
-}
+  }
   app_presetup() {
     echo -e "${color} Add application user ${nocolor}"
-    id roboshop &>>$log_file
+    id roboshop  &>>$log_file
     if [ $? -eq 1 ]; then
     useradd roboshop  &>>$log_file
     fi
