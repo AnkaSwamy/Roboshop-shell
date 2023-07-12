@@ -7,8 +7,8 @@ stat_check() {
   if [ $1 -eq 0 ]; then
         echo SUCCESS
         else
-          echo FAILURE
-          fi
+        echo FAILURE
+        fi
   }
   app_presetup() {
     echo -e "${color} Add application user ${nocolor}"
@@ -38,7 +38,6 @@ stat_check() {
     cp /root/Roboshop-shell/$component.service /etc/systemd/system/$component.service  &>>$log_file
     sed -i -e "s/roboshop_app_passwd/$1/" /root/Roboshop-shell/$component.service
     stat_check $?
-
     echo -e "${color}  Start the $component service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
     systemctl enable $component  &>>$log_file
@@ -70,7 +69,7 @@ stat_check() {
     echo -e "${color} Install mysql client ${nocolor}"
     yum install mysql -y  &>>log_file
     echo -e "${color} load schema ${nocolor}"
-    mysql -h  mysql-dev.ankadevopsb73.store -uroot -pRoboShop@1 < /app/schema/shipping.sql   &>>log_file
+    mysql -h  mysql-dev.ankadevopsb73.store -uroot -pRoboShop@1 <${app_path}/schema/$component.sql   &>>log_file
     }
   maven() {
     echo -e "${color}  Install maven ${nocolor}"
@@ -97,6 +96,5 @@ stat_check() {
     cd ${app_path}
     pip3.6 install -r requirements.txt  &>>log_file
     stat_check $?
-
     systemd_setup
   }

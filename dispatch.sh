@@ -15,7 +15,8 @@ cd /app
 echo -e "\e[31m Extract application content \e[0m"
 unzip /tmp/dispatch.zip  &>>/tmp/roboshop.log
 
-echo -e "\e[31m download the dependencies & build the software  \e[0m"
+echo -e "\e[31m download the dependencies & build the software
+\e[0m"
 cd /app
 go mod init dispatch  &>>/tmp/roboshop.log
 go get  &>>/tmp/roboshop.log
