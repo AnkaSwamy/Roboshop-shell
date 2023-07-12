@@ -20,21 +20,18 @@ stat_check() {
     stat_check $?
 
     echo -e "${color} Create application directory ${nocolor}"
-    rm -rf
+    rm -rf ${app_path}
     mkdir ${app_path}  &>>$log_file
-     stat_check $?
+    stat_check $?
 
     echo -e "${color} Download application content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
-    cd ${app_path}
 
     stat_check $?
 
     echo -e "${color} Extract application content ${nocolor}"
     cd ${app_path}
     unzip /tmp/${component}.zip  &>>$log_file
-
-
     stat_check $?
     }
 
