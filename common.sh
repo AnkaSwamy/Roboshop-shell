@@ -1,71 +1,55 @@
-color="\e[31m"
+color="\e[35m"
 nocolor="\e[0m"
 app_path="/app"
 log_file="/tmp/roboshop.log"
 
+stat_check() {
+  if [ $1 -eq 0 ]; then
+        echo SUCCESS
+        else
+          echo FAILURE
+          fi
+
+}
   app_presetup() {
     echo -e "${color} Add application user ${nocolor}"
     id roboshop &>>$log_file
-    if [ $? -eq 1 ]; then
+    if [ $? -eq 0 ]; then
     useradd roboshop  &>>$log_file
     fi
-    if [ $? -eq 0 ]; then
-      echo SUCCESS
-      else
-        echo FAILURE
-        fi
+    stat_check $?
 
     echo -e "${color} Create application directory ${nocolor}"
     rm -rf
     mkdir ${app_path}  &>>$log_file
-     if [ $? -eq 0 ]; then
-          echo SUCCESS
-          else
-            echo FAILURE
-            fi
+     stat_check $?
 
     echo -e "${color} Download application content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
     cd ${app_path}
 
-    if [ $? -eq 0 ]; then
-         echo SUCCESS
-         else
-           echo FAILURE
-           fi
+    stat_check $?
 
     echo -e "${color} Extract application content ${nocolor}"
     cd ${app_path}
     unzip /tmp/${component}.zip  &>>$log_file
 
 
-    if [ $? -eq 0 ]; then
-         echo SUCCESS
-         else
-           echo FAILURE
-           fi
+    stat_check $?
     }
 
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
     cp /root/Roboshop-shell/${component}.service /etc/systemd/system/${component}.service  &>>$log_file
 
-    if [ $? -eq 0 ]; then
-          echo SUCCESS
-          else
-            echo FAILURE
-            fi
+    stat_check $?
 
     echo -e "${color}  Start the ${component} service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
     systemctl enable ${component}  &>>$log_file
     systemctl restart ${component} &>>$log_file
 
-     if [ $? -eq 0 ]; then
-          echo SUCCESS
-          else
-            echo FAILURE
-            fi
+     stat_check $?
 
 
     }
@@ -116,11 +100,7 @@ log_file="/tmp/roboshop.log"
     echo -e "${color} Install python ${nocolor}"
     yum install python36 gcc python3-devel -y  &>>log_file
 
-     if [ $? -eq 0 ]; then
-          echo SUCCESS
-          else
-            echo FAILURE
-            fi
+     stat_check $?
 
     app_presetup
 
@@ -128,11 +108,7 @@ log_file="/tmp/roboshop.log"
     cd /app
     pip3.6 install -r requirements.txt  &>>log_file
 
-     if [ $? -eq 0 ]; then
-          echo SUCCESS
-          else
-            echo FAILURE
-            fi
+     stat_check $?
 
     systemd_setup
   }
