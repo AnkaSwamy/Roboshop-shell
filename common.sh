@@ -5,6 +5,8 @@ log_file="/tmp/roboshop.log"
 
   app_presetup() {
     echo -e "${color} Add application user ${nocolor}"
+    id roboshop &>>$log_file
+    if [ $? -eq 1 ]; then
     useradd roboshop  &>>$log_file
     if [ $? -eq 0 ]; then
       echo SUCCESS
@@ -24,6 +26,7 @@ log_file="/tmp/roboshop.log"
     echo -e "${color} Download application content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
     cd ${app_path}
+
     if [ $? -eq 0 ]; then
          echo SUCCESS
          else
@@ -31,8 +34,9 @@ log_file="/tmp/roboshop.log"
            fi
 
     echo -e "${color} Extract application content ${nocolor}"
-    unzip /tmp/${component}.zip  &>>$log_file
     cd ${app_path}
+    unzip /tmp/${component}.zip  &>>$log_file
+
 
     if [ $? -eq 0 ]; then
          echo SUCCESS
