@@ -52,38 +52,48 @@ stat_check() {
   nodejs() {
     echo -e "${color} Configure nodejs repos ${nocolor}"
     curl -sL https://rpm.nodesource.com/setup_lts.x | bash   &>>$log_file
+    stat_check $?
     echo -e "${color} Install nodejs ${nocolor}"
     yum install nodejs -y  &>>$log_file
+    stat_check $?
     app_presetup
 
     echo -e "${color} Install nodejs dependencies ${nocolor}"
     npm install  &>>$log_file
+    stat_check $?
     systemd_setup
     }
 
   mongo_schema_setup() {
     echo -e "${color}  copy mongodb repo file ${nocolor}"
     cp /root/Roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
+    stat_check $?
     echo -e "${color}  Install Mongodb client ${nocolor}"
     yum install mongodb-org-shell -y  &>>$log_file
+    stat_check $?
     echo -e "${color} Load schema ${nocolor}"
     mongo --host mongodb-dev.ankadevopsb73.store <${app_path}/schema/$component.js  &>>$log_file
+    stat_check $?
     }
 
   mysql_schema_setup() {
     echo -e "${color} Install mysql client ${nocolor}"
     yum install mysql -y  &>>log_file
+    stat_check $?
     echo -e "${color} load schema ${nocolor}"
     mysql -h  mysql-dev.ankadevopsb73.store -uroot -pRoboShop@1 <${app_path}/schema/$component.sql   &>>log_file
+    stat_check $?
     }
   maven() {
     echo -e "${color}  Install Maven ${nocolor}"
     yum install maven -y  &>>$log_file
+    stat_check $?
     app_presetup
 
     echo -e "${color}  Download maven dependencies ${nocolor}"
     mvn clean package
     mv target/$component-1.0.jar $component.jar
+    stat_check $?
 
     mysql_schema_setup
 
@@ -99,6 +109,7 @@ stat_check() {
 
     echo -e "${color} Install application dependencies ${nocolor}"
     cd ${app_path}
+
     pip3.6 install -r requirements.txt  &>>log_file
     stat_check $?
     systemd_setup
