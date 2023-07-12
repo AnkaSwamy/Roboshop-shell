@@ -6,7 +6,11 @@ log_file="/tmp/roboshop.log"
   app_presetup() {
     echo -e "${color} Add application user ${nocolor}"
     useradd roboshop  &>>$log_file
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+      else
+        echo FAILURE
+        fi
 
     echo -e "${color} Create application directory ${nocolor}"
     rm -rf
@@ -16,24 +20,40 @@ log_file="/tmp/roboshop.log"
     echo -e "${color} Download application content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
     cd ${app_path}
-    echo $?
+    if [ $? -eq 0 ]; then
+         echo SUCCESS
+         else
+           echo FAILURE
+           fi
 
     echo -e "${color} Extract application content ${nocolor}"
     unzip /tmp/${component}.zip  &>>$log_file
     cd ${app_path}
-    echo $?
+    if [ $? -eq 0 ]; then
+         echo SUCCESS
+         else
+           echo FAILURE
+           fi
     }
 
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
     cp /root/Roboshop-shell/${component}.service /etc/systemd/system/${component}.service  &>>$log_file
-    echo $?
+     if [ $? -eq 0 ]; then
+          echo SUCCESS
+          else
+            echo FAILURE
+            fi
 
     echo -e "${color}  Start the ${component} service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
     systemctl enable ${component}  &>>$log_file
     systemctl restart ${component} &>>$log_file
-    echo $?
+     if [ $? -eq 0 ]; then
+          echo SUCCESS
+          else
+            echo FAILURE
+            fi
 
 
     }
@@ -46,7 +66,7 @@ log_file="/tmp/roboshop.log"
 
     echo -e "${color} Install nodejs dependencies ${nocolor}"
     npm install  &>>$log_file
-    echo $?
+
 
     systemd_setup
     }
@@ -82,13 +102,22 @@ log_file="/tmp/roboshop.log"
   python() {
     echo -e "\e[31m Install python \e[0m"
     yum install python36 gcc python3-devel -y  &>>/tmp/roboshop.log
-    echo $?
+     if [ $? -eq 0 ]; then
+          echo SUCCESS
+          else
+            echo FAILURE
+            fi
 
     app_presetup
 
     echo -e "\e[31m Install application dependencies \e[0m"
     cd /app
     pip3.6 install -r requirements.txt  &>>/tmp/roboshop.log
+     if [ $? -eq 0 ]; then
+          echo SUCCESS
+          else
+            echo FAILURE
+            fi
 
     systemd_setup
   }
