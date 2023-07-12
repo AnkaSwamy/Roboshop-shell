@@ -24,7 +24,7 @@ stat_check() {
     stat_check $?
 
     echo -e "${color} Download application content ${nocolor}"
-    curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip   &>>$log_file
+    curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
     stat_check $?
 
     echo -e "${color} Extract application content ${nocolor}"
