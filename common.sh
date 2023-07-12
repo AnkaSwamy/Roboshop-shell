@@ -33,6 +33,7 @@ log_file="/tmp/roboshop.log"
     echo -e "${color} Extract application content ${nocolor}"
     unzip /tmp/${component}.zip  &>>$log_file
     cd ${app_path}
+
     if [ $? -eq 0 ]; then
          echo SUCCESS
          else
@@ -43,7 +44,8 @@ log_file="/tmp/roboshop.log"
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
     cp /root/Roboshop-shell/${component}.service /etc/systemd/system/${component}.service  &>>$log_file
-     if [ $? -eq 0 ]; then
+
+    if [ $? -eq 0 ]; then
           echo SUCCESS
           else
             echo FAILURE
@@ -53,6 +55,7 @@ log_file="/tmp/roboshop.log"
     systemctl daemon-reload   &>>$log_file
     systemctl enable ${component}  &>>$log_file
     systemctl restart ${component} &>>$log_file
+
      if [ $? -eq 0 ]; then
           echo SUCCESS
           else
@@ -85,10 +88,10 @@ log_file="/tmp/roboshop.log"
     }
 
   mysql_schema_setup() {
-    echo -e "\e[31m Install mysql client \e[0m"
-    yum install mysql -y  &>>/tmp/roboshop.log
-    echo -e "\e[31m load schema \e[0m"
-    mysql -h  mysql-dev.ankadevopsb73.store -uroot -pRoboShop@1 < /app/schema/shipping.sql   &>>/tmp/roboshop.log
+    echo -e "${color} Install mysql client ${nocolor}"
+    yum install mysql -y  &>>log_file
+    echo -e "${color} load schema ${nocolor}"
+    mysql -h  mysql-dev.ankadevopsb73.store -uroot -pRoboShop@1 < /app/schema/shipping.sql   &>>log_file
     }
   maven() {
     echo -e "${color}  Install maven ${nocolor}"
@@ -103,9 +106,11 @@ log_file="/tmp/roboshop.log"
 
     systemd_setup
    }
+
   python() {
-    echo -e "\e[31m Install python \e[0m"
-    yum install python36 gcc python3-devel -y  &>>/tmp/roboshop.log
+    echo -e "${color} Install python ${nocolor}"
+    yum install python36 gcc python3-devel -y  &>>log_file
+
      if [ $? -eq 0 ]; then
           echo SUCCESS
           else
@@ -114,9 +119,10 @@ log_file="/tmp/roboshop.log"
 
     app_presetup
 
-    echo -e "\e[31m Install application dependencies \e[0m"
+    echo -e "${color} Install application dependencies ${nocolor}"
     cd /app
-    pip3.6 install -r requirements.txt  &>>/tmp/roboshop.log
+    pip3.6 install -r requirements.txt  &>>log_file
+
      if [ $? -eq 0 ]; then
           echo SUCCESS
           else
