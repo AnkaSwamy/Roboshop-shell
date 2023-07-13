@@ -1,6 +1,6 @@
 source common.sh
 echo -e "${color} Copy mongodb repo file ${nocolor}"
-cp /root/Roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
+cp /root/RoboshopShellProject/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
 stat_check $?
 
 echo -e "${color} Installing mongodb server ${nocolor}"
