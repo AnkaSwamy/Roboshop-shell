@@ -109,3 +109,17 @@ stat_check() {
     stat_check $?
     systemd_setup
   }
+   golang() {
+     echo -e "${color} Install golang  ${nocolor}"
+     yum install golang -y  &>>$log_file
+     stat_check $?
+     app_presetup
+     echo -e "${color} download the dependencies & build the software ${nocolor}"
+     cd ${app_path}
+     go mod init dispatch  &>>$log_file
+     go get  &>>$log_file
+     go build  &>>$log_file
+     stat_check $?
+     systemd_setup
+   }
+
