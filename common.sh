@@ -40,8 +40,8 @@ stat_check() {
 
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
-    cp /root/Roboshop-shell/$component.service /etc/systemd/system/$component.service  &>>$log_file
-    sed -i -e "s/roboshop_app_password/$roboshop_app_password/"  /root/Roboshop-shell/$component.service
+    cp /root/RoboshopShellProject/$component.service /etc/systemd/system/$component.service  &>>$log_file
+    sed -i -e "s/roboshop_app_password/$roboshop_app_password/"  /root/RoboshopShellProject/$component.service
     stat_check $?
     echo -e "${color}  Start the $component service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
@@ -66,7 +66,7 @@ stat_check() {
 
   mongo_schema_setup() {
     echo -e "${color}  copy mongodb repo file ${nocolor}"
-    cp /root/Roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
+    cp /root/RoboshopShellProject/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
     stat_check $?
     echo -e "${color}  Install Mongodb client ${nocolor}"
     yum install mongodb-org-shell -y  &>>$log_file

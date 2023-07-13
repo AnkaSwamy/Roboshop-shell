@@ -19,7 +19,7 @@ unzip /tmp/${component}.zip &>>$log_file
 stat_check $?
 
 echo -e "${color} Update the configuration ${nocolor}"
-cp /root/Roboshop-shell/roboshop.conf /etc/nginx/default.d/roboshop.conf  &>>$log_file
+cp /root/RoboshopShellProject/roboshop.conf /etc/nginx/default.d/roboshop.conf  &>>$log_file
 stat_check $?
 
 echo -e "${color} Start nginx server ${nocolor}"
