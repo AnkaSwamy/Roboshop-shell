@@ -10,6 +10,7 @@ if [ $user_id -ne 0 ]; then
 stat_check() {
   if [ $1 -eq 0 ]; then
         echo SUCCESS
+
         else
         echo FAILURE
         exit 1
