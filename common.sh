@@ -29,7 +29,7 @@ stat_check() {
     stat_check $?
 
     echo -e "${color} Download application content ${nocolor}"
-    curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>$log_file
+    curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip   &>>$log_file
     stat_check $?
 
     echo -e "${color} Extract application content ${nocolor}"
@@ -102,12 +102,9 @@ stat_check() {
     echo -e "${color} Install python ${nocolor}"
     yum install python36 gcc python3-devel -y  &>>log_file
     stat_check $?
-
     app_presetup
-
     echo -e "${color} Install application dependencies ${nocolor}"
     cd ${app_path}
-
     pip3.6 install -r requirements.txt  &>>log_file
     stat_check $?
     systemd_setup
