@@ -81,7 +81,7 @@ stat_check() {
     yum install mysql -y  &>>log_file
     stat_check $?
     echo -e "${color} load schema ${nocolor}"
-    mysql -h  mysql-dev.ankadevopsb73.store -uroot -pRoboShop@1 <${app_path}/schema/$component.sql   &>>log_file
+    mysql -h  mysql-dev.ankadevopsb73.store -uroot -p${mysql_root_password} <${app_path}/schema/$component.sql   &>>log_file
     stat_check $?
     }
   maven() {
