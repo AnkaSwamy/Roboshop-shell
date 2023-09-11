@@ -7,7 +7,6 @@ stat_check $?
 
 echo -e "${color} Remove default content ${nocolor}"
 rm -rf /usr/share/nginx/html/* &>>$log_file
-mkdir /app
 stat_check $?
 
 echo -e "${color} Download frontend content ${nocolor}"
