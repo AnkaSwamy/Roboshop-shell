@@ -41,7 +41,7 @@ stat_check() {
   systemd_setup() {
     echo -e "${color} Setup systemd service ${nocolor}"
     cp /root/RoboshopShellProject/$component.service /etc/systemd/system/$component.service  &>>$log_file
-    sed -i -e "s/roboshop_app_password/$roboshop_app_password/"  /root/RoboshopShellProject/$component.service
+    sed -i -e "s/roboshop_app_password/$roboshop_app_password/" /root/RoboshopShellProject/$component.service
     stat_check $?
     echo -e "${color}  Start the $component service ${nocolor}"
     systemctl daemon-reload   &>>$log_file
