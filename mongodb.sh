@@ -1,5 +1,5 @@
 source common.sh
-echo -e "${color} Copy mongodb repo file ${nocolor}"
+echo -e "${color} Copy Mongodb repo file ${nocolor}"
 cp /root/RoboshopShellProject/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
 stat_check $?
 
