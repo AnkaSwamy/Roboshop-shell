@@ -68,7 +68,7 @@ stat_check() {
 
   mongo_schema_setup() {
     echo -e "${color}  copy mongodb repo file ${nocolor}"
-    cp /root/RoboshopShellProject/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
+    cp /home/centos/RoboshopShellProject/mongodb.repo /etc/yum.repos.d/mongodb.repo  &>>$log_file
     stat_check $?
     echo -e "${color}  Install Mongodb client ${nocolor}"
     yum install mongodb-org-shell -y  &>>$log_file
